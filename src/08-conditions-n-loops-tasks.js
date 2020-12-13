@@ -183,8 +183,8 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  return str.split('').find((char, i, arr) => arr.indexOf(char) === arr.lastIndexOf(char));
 }
 
 
@@ -287,8 +287,18 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  if (num > 0 && num.toString().length > 1) {
+    return num.toString().split('')
+      .reduce((prev, item) => {
+        let prev2 = prev + +item;
+        if (prev2.toString().length > 1) {
+          prev2 = getDigitalRoot(prev2);
+        }
+        return prev2;
+      }, 0);
+  }
+  return 0;
 }
 
 
@@ -338,10 +348,9 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return num.toString(n);
 }
-
 
 /**
  * Returns the commom directory path for specified array of full filenames.
@@ -351,7 +360,7 @@ function toNaryString(/* num, n */) {
  *
  * @example:
  *   ['/web/images/image1.png', '/web/images/image2.png']  => '/web/images/'
- *   ['/web/assets/style.css', '/web/scripts/app.js',  'home/setting.conf'] => ''
+ *   ['/web/assets/style.css', l '/web/scripts/app.js',  'home/setting.conf'] => ''
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */

@@ -35,8 +35,12 @@ function findElement(arr, value) {
  *    2 => [ 1, 3 ]
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
-function generateOdds(/* len */) {
-  throw new Error('Not implemented');
+function generateOdds(len) {
+  return [...Array(len)].map((item, i) => {
+    let eachIterItem = item;
+    eachIterItem = i * 2 + 1;
+    return eachIterItem;
+  });
 }
 
 
@@ -555,8 +559,15 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  return array.reduce((ourNewMap, item) => {
+    if (!ourNewMap.has(keySelector(item))) {
+      ourNewMap.set(keySelector(item), [valueSelector(item)]);
+    } else {
+      ourNewMap.get(keySelector(item)).push(valueSelector(item));
+    }
+    return ourNewMap;
+  }, new Map());
 }
 
 
@@ -573,8 +584,15 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  let newArr = [];
+
+  arr.map((item) => {
+    newArr = newArr.concat(childrenSelector(item));
+    return item;
+  });
+
+  return newArr;
 }
 
 
